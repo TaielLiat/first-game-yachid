@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,14 +13,14 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
 	private int anchoJuego;
 	private int largoJuego;
-	public int nivelActual = 4;
+	public static int nivelActual = 1;
 	int[][] nivel1;
 	int[][] nivel2;
 	int[][] nivel3;
 	int[][] nivel4;
 	int[][] nivel5;
-	Personaje personaje = new Personaje(nivelActual);
-	Mapa niveles = new Mapa (nivelActual, nivel1, nivel2, nivel3, nivel4, nivel5);	
+	Personaje personaje = new Personaje();
+	Mapa niveles = new Mapa ( nivel1, nivel2, nivel3, nivel4, nivel5);	
 	
 	public Panel (int anchoJuego, int largoJuego) {
 		inicializarVentana(anchoJuego, largoJuego);
@@ -34,12 +36,13 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	}
 	
 	
-	public int getNivelActual() {
+	public static int getNivelActual() {
 		return nivelActual;
 	}
 	
-	public int cambiaNivelActual() {
+	public static int cambiarNivelActual() {
 		return nivelActual++;
+		
 	}
 	
 	@Override //Implemento metodo Override para superponer la creada por la clase Runnable
@@ -48,6 +51,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 			actualizarAmbiente();
 			repintar();
 			esperar(3);
+			
 		}
 	}
 	
@@ -55,7 +59,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 		try {
 			Thread.sleep (milisegundos);
 		} catch (Exception el) {
-			throw new RuntimeException(el);
+			Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, "xd");
 		}
 		if(nivelActual > 5){
 			JOptionPane.showMessageDialog(null, "Felicidades! Ganaste.");
@@ -94,4 +98,5 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		personaje.keyReleased(e);
 	}
+
 }

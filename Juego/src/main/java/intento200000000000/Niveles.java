@@ -12,18 +12,18 @@ public class Niveles {
 //15 filas 19 columnas
 //285 total
 	
-	public Niveles(int nivelActual) {
-		this.nivelActual = nivelActual;
+	public Niveles() {
+	
 	}
 
-	public static int[][] obtenerNivel (int nivelActual){
-		if (nivelActual == 1) {
+	public static int[][] obtenerNivel (){
+		if (Panel.getNivelActual() == 1) {
 			return nivel1;
-		} else if (nivelActual == 2) {
+		} else if (Panel.getNivelActual() == 2) {
 			return nivel2;
-		} else if (nivelActual == 3) {
+		} else if (Panel.getNivelActual() == 3) {
 			return nivel3;
-		} else if (nivelActual == 4) {
+		} else if (Panel.getNivelActual() == 4) {
 			return nivel4;
 		} else {
 			return nivel5;
@@ -126,6 +126,8 @@ public class Niveles {
 	    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	};
+
+}
 	
 	/* int nivel [][] = 
 	{	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -146,5 +148,5 @@ public class Niveles {
 	    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	};
 	*/
-}
+
 

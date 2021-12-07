@@ -24,6 +24,8 @@ public class Inicializador {
 		
 		// Mostrar la ventana
 		ventana.setVisible(true);
+		
+		ventana.setResizable(false);
 	
 		//Instancia un nuevo panel y le manda el ancho y largo de la ventana
 		Panel panel = new Panel (anchoVentana, largoVentana);
