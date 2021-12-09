@@ -8,7 +8,8 @@ public class Inicializador {
 	public static void main (String[] args) {
 		// tamaño pantalla 
 		int anchoVentana = 950;
-		int largoVentana = 750;
+		int largoVentana = 900;
+		int vidas = 3;
 		
 		//Acelera el juego 
 		System.setProperty("sun.java2d.opengl", "true");
@@ -28,7 +29,7 @@ public class Inicializador {
 		ventana.setResizable(false);
 	
 		//Instancia un nuevo panel y le manda el ancho y largo de la ventana
-		Panel panel = new Panel (anchoVentana, largoVentana);
+		Panel panel = new Panel (anchoVentana, largoVentana, vidas);
 		/*Personaje personaje = new Personaje(anchoVentana, largoVentana);*/
 		
 		//Agrega a la ventana el panel (panel hereda de JPanel)

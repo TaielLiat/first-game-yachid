@@ -8,15 +8,13 @@ import java.awt.event.KeyListener;
 public class Personaje implements KeyListener {
 	private int personajeAncho = 30;
 	private int personajeAlto = 40;
-	private int posicionX;
-	private int posicionY;
-	private int velocidadX;
-	private int velocidadY;
-	Panel panel; 
-	Mapa niveles;
+	private static int posicionX;
+	private static int posicionY;
+    private Panel panel;
 	
 	public Personaje (){
 		inicializarPersonaje();
+		
 	}
 
 	public void dibujar(Graphics g) {
@@ -26,114 +24,140 @@ public class Personaje implements KeyListener {
 		g.drawRect(posicionX, posicionY, personajeAncho, personajeAlto);
 	}
 	
-	public void moverPersonaje() {
-		posicionX = posicionX + velocidadX;
-		posicionY = posicionY + velocidadY;
-		System.out.println("PosicionX=" + posicionX);
-		System.out.println("PosicionY=" + posicionY);
-	}
-
 	
 	public void inicializarPersonaje() {
 		if (Panel.getNivelActual() == 1) {
-			this.posicionX = 110;
-			this.posicionY = 555;
+			Personaje.posicionX = 110;
+			Personaje.posicionY = 605;
 		} 
-		if( Panel.getNivelActual() == 2) {
-			this.posicionX = 110;
-			this.posicionY = 555;
+		if(Panel.getNivelActual() == 2) {
+			Personaje.posicionX = 110;
+			Personaje.posicionY = 605;
 		}
-		if( Panel.getNivelActual()== 3) {
-			this.posicionX = 160;
-			this.posicionY = 405;
+		if(Panel.getNivelActual()== 3) {
+			Personaje.posicionX = 160;
+			Personaje.posicionY = 455;
 		} 
-		if( Panel.getNivelActual() == 4) {
-			this.posicionX = 160;
-			this.posicionY = 355;
+		if(Panel.getNivelActual() == 4) {
+			Personaje.posicionX = 160;
+			Personaje.posicionY = 405;
 		}
-		if( Panel.getNivelActual() == 5) {
-			this.posicionX = 710;
-			this.posicionY = 405;
+		if(Panel.getNivelActual() == 5) {
+			Personaje.posicionX = 710;
+			Personaje.posicionY = 455;
+		}
+		if(Panel.getNivelActual() == 6) {
+			Personaje.posicionX = 110;
+			Personaje.posicionY = 605;
 		}
 	}
 	
 	
 	public int getLlegadaX() {
-		if ( Panel.getNivelActual() == 1) {
+		if (Panel.getNivelActual() == 1) {
 			return 810; //BIEN
 		}
-		if ( Panel.getNivelActual()== 2) {
+		if (Panel.getNivelActual()== 2) {
 			return 710; //BIEN
 		}
-		if ( Panel.getNivelActual() == 3) {
+		if (Panel.getNivelActual() == 3) {
 			return 710; //BIEN
 		}
-		if ( Panel.getNivelActual() == 4) {
+		if (Panel.getNivelActual() == 4) {
 			return 710; //BIEN
-		} else {
+		} 
+		if (Panel.getNivelActual() == 5) {
 			return 110; //BIEN
+		} else {
+			return 710; //BIEN
 		}
 
 	}
 	
 	public int getLlegadaY() {
-		 if ( Panel.getNivelActual() ==1) {
-			 return 555; //BIEN
+		 if (Panel.getNivelActual() == 1) {
+			 return 605; //BIEN
 		 }
-		 if ( Panel.getNivelActual() == 2) {
+		 if (Panel.getNivelActual() == 2) {
+			 return 455; //BIEN
+		 }
+		 if (Panel.getNivelActual() == 3) {
+			 return 455; //BIEN
+		 }
+		 if (Panel.getNivelActual() == 4) {
 			 return 405; //BIEN
-		 }
-		 if ( Panel.getNivelActual() == 3) {
-			 return 405; //BIEN
-		 }
-		 if ( Panel.getNivelActual() == 4) {
-			 return 355; //BIEN
-		 } else {
-			 return 555; //BIEN
+		 } 
+		 if (Panel.getNivelActual() == 5) {
+			 return 605;
+		}else {
+			 return 455; 
 		 }
 	
 	}
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg8) {
-		int [][]nivel = Niveles.obtenerNivel();
+	public void keyPressed(KeyEvent arg8) {		
 		if (arg8.getKeyCode () == 39 || arg8.getKeyCode () == 68) {//FLECHA DERECHA
-			if(nivel[posicionY/50] [(posicionX/50) + 1] !=2) {
+			if(Mapa.obtenerNivel()[posicionY/50] [(posicionX/50) + 1] !=2) {
 				posicionX = posicionX + 50;
+				Puntaje.sumarPunto();
+			}
+			if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
+				Mapa.nivel[(posicionY/50)][(posicionX/50) -1] = 3;
 			}
 		}
 		if (arg8.getKeyCode () == 37 || arg8.getKeyCode () == 65) { //FLECHA IZQUIERDA
-			if(nivel[posicionY/50] [(posicionX/50) - 1] !=2) {
+			if(Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50) - 1] !=2) {
 				posicionX = posicionX - 50;
+				Puntaje.sumarPunto();
+				if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
+					Mapa.nivel[(posicionY/50)][(posicionX/50) +1] = 3;
+					
+				}
 			}
 		}
 		if (arg8.getKeyCode () == 38 || arg8.getKeyCode () == 87 ) {// FLECHA ARRIBA
-			if(nivel[(posicionY/50) - 1] [posicionX/50] !=2) {
+			if(Mapa.obtenerNivel()[(posicionY/50) - 1] [posicionX/50] !=2 ) {
 				posicionY = posicionY - 50;
+				Puntaje.sumarPunto();
+				if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
+					Mapa.nivel[(posicionY/50)+1][(posicionX/50) ] = 3;
+				
+				}
 			}
 		}
 		if (arg8.getKeyCode () == 40 || arg8.getKeyCode () == 83 ) {//FLECHA ABAJO
-			if(nivel[(posicionY/50) + 1] [posicionX/50] !=2) {
+			if(Mapa.obtenerNivel()[(posicionY/50) + 1] [posicionX/50] !=2) {
 				posicionY = posicionY + 50;
+				Puntaje.sumarPunto();
+				if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
+					Mapa.nivel[(posicionY/50)-1][(posicionX/50) ] = 3;
+					
+				}
 			}
 		}
+		if  (Mapa.obtenerNivel()[(posicionY/50)][(posicionX/50)] == 3) {
+			Vidas.perderVida();
+			panel.resetearNivel();
+		}
+		
 		if (posicionX== getLlegadaX() && posicionY==getLlegadaY() ) {
 			System.out.println("Llegaste a la meta");
 			Panel.cambiarNivelActual();
+			Panel.inicializarPuntaje();
 			inicializarPersonaje();
+			Puntaje.setPuntaje0(0);
 		}
 	}
-
+	
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		velocidadX = 0;
-		velocidadY = 0;
+		
 	}
 	
 	public int getPosicionX() {
@@ -143,5 +167,8 @@ public class Personaje implements KeyListener {
 	public int getPosicionY() {
 		return posicionY;
 	}
+
+
+
 	
 }
