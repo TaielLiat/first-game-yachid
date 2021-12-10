@@ -24,7 +24,7 @@ public class Mapa {
 			//285 total
 		}
 	
-		public void paint (Graphics g) {	
+		public void dibujarse (Graphics g) {	
 			for (fila = 0; fila<numeroFilas; fila++) {
 				for (columna = 0; columna<numeroColumnas; columna++) {
 				// FONDO
@@ -83,6 +83,7 @@ public class Mapa {
 			return nivel;
 		}
 
+		
 	//14 casillas pisables
 		public static int nivel1 [][] = 
 		{	{ 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10}, //EMPTY

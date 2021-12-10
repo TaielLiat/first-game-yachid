@@ -16,7 +16,6 @@ public class PantallaImagen {
     protected int largo;
     protected int puntos;
     protected int puntajeTotal;
-    private Puntaje puntaje;
 
     public PantallaImagen(int ancho, int largo, String resource) {
         try {
@@ -37,7 +36,7 @@ public class PantallaImagen {
 
     public void dibujarse(Graphics graphics) {
         try {
-        		mostrarMensaje(graphics, "Obtuviste: " + puntaje.getPuntajeTotal() + " puntos en total.");
+        		mostrarMensaje(graphics, "TOTAL SCORE: " + Puntaje.getPuntajeTotal() );
     			graphics.drawImage(img, 0, 0, ancho, largo, null);
         } catch (Exception e1) {
             throw new RuntimeException(e1);

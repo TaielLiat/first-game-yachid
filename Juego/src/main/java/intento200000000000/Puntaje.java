@@ -23,7 +23,7 @@ public class Puntaje {
         g.drawString(puntaje + " / " + puntajeNivel, posicionX, posicionY);
     
         g.setColor(Color.black);
-        g.drawString("PUNTOS TOTALES " + puntajeTotal, 600, 880);
+        g.drawString("TOTAL SCORE: " + puntajeTotal, 600, 880);
     
     }
     public static void setPuntaje0 (int puntaje) {
@@ -35,11 +35,21 @@ public class Puntaje {
         puntajeTotal++;
     }
 
-    public int getPuntaje() {
+    public static int getPuntaje() {
         return puntaje;
     }
 
-    public int getPuntajeTotal() {
+    public static void setPuntajeTotal() {
+    	puntajeTotal = puntajeTotal - puntaje;
+    }
+    
+    public static void reiniciarPuntaje () {
+    	puntaje = 0;
+    	puntajeTotal = 0;
+    }
+
+    
+    public static int getPuntajeTotal() {
     	return puntajeTotal;
     }
 }

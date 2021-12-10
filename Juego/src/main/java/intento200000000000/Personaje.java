@@ -10,14 +10,17 @@ public class Personaje implements KeyListener {
 	private int personajeAlto = 40;
 	private static int posicionX;
 	private static int posicionY;
-    private Panel panel;
-	
+    private Sonidos sonidos;
+    //MAPA
+	private static int numeroFilas = 17; 
+	private static int numeroColumnas = 19;
+	//
 	public Personaje (){
 		inicializarPersonaje();
 		
 	}
 
-	public void dibujar(Graphics g) {
+	public void dibujarse(Graphics g) {
 		g.setColor(Color.blue);
 		g.fillRect(posicionX, posicionY, personajeAncho, personajeAlto);
 		g.setColor(Color.black);
@@ -25,7 +28,7 @@ public class Personaje implements KeyListener {
 	}
 	
 	
-	public void inicializarPersonaje() {
+	public static void inicializarPersonaje() {
 		if (Panel.getNivelActual() == 1) {
 			Personaje.posicionX = 110;
 			Personaje.posicionY = 605;
@@ -105,9 +108,9 @@ public class Personaje implements KeyListener {
 			if(Mapa.obtenerNivel()[posicionY/50] [(posicionX/50) + 1] !=2) {
 				posicionX = posicionX + 50;
 				Puntaje.sumarPunto();
-			}
-			if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
-				Mapa.nivel[(posicionY/50)][(posicionX/50) -1] = 3;
+				if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
+					Mapa.nivel[(posicionY/50)][(posicionX/50) -1] = 3;
+				}
 			}
 		}
 		if (arg8.getKeyCode () == 37 || arg8.getKeyCode () == 65) { //FLECHA IZQUIERDA
@@ -136,13 +139,19 @@ public class Personaje implements KeyListener {
 				Puntaje.sumarPunto();
 				if (Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 1 || Mapa.obtenerNivel()[(posicionY/50)] [(posicionX/50)] == 4) {
 					Mapa.nivel[(posicionY/50)-1][(posicionX/50) ] = 3;
-					
 				}
 			}
 		}
+		
+		
+		// SI EL PERSONAJE ESTA EN EL MAPA ENCIMA DE LAVA
 		if  (Mapa.obtenerNivel()[(posicionY/50)][(posicionX/50)] == 3) {
-			Vidas.perderVida();
-			panel.resetearNivel();
+			Vidas.perderVida();					// PERDER UNA VIDA
+			reiniciarMapa();					// PINTA DE NUEVO EL MAPA
+			Puntaje.setPuntajeTotal();			// LE RESTA AL PUNTAJE TOTAL LOS PUNTOS QUE GANASTE AL PERDER
+			Puntaje.setPuntaje0(0);				// VUELVE EL PUNTAJE POR NIVEL A 0
+            Personaje.inicializarPersonaje();	// INICIA DE NUEVO AL PERSONAJE EN LA UBICACION POR NIVEL 
+			sonidos.tocarSonido("muerte");		// LLAMA A HACER SONIDO DE MUERTE (AUN NO ESTABLECIDO)
 		}
 		
 		if (posicionX== getLlegadaX() && posicionY==getLlegadaY() ) {
@@ -151,10 +160,21 @@ public class Personaje implements KeyListener {
 			Panel.inicializarPuntaje();
 			inicializarPersonaje();
 			Puntaje.setPuntaje0(0);
+			
 		}
 	}
 	
 	
+	public static void reiniciarMapa() {
+		for (int i = 0; i<numeroFilas; i++) {
+			for (int x = 0; x<numeroColumnas; x++) {
+				if (Mapa.obtenerNivel()[i][x] == 3){
+					Mapa.nivel[i][x] = 1;
+				}
+			}
+		}
+	}
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		

@@ -10,6 +10,7 @@ public class Inicializador {
 		int anchoVentana = 950;
 		int largoVentana = 900;
 		int vidas = 3;
+		int esperaActualizaciones = 5;
 		
 		//Acelera el juego 
 		System.setProperty("sun.java2d.opengl", "true");
@@ -20,8 +21,8 @@ public class Inicializador {
 		// Cerrar el juego dandole a la "x"
 		ventana.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	
-		// Abrir la ventana en el centro de la pantalla
-		ventana.setLocation(300,100);
+		// Abrir la ventana en el centro de la pantalla  (COORDENADAS X, Y)
+		ventana.setLocation(450,40); 
 		
 		// Mostrar la ventana
 		ventana.setVisible(true);
@@ -29,16 +30,15 @@ public class Inicializador {
 		ventana.setResizable(false);
 	
 		//Instancia un nuevo panel y le manda el ancho y largo de la ventana
-		Panel panel = new Panel (anchoVentana, largoVentana, vidas);
-		/*Personaje personaje = new Personaje(anchoVentana, largoVentana);*/
+		Panel panel = new Panel (anchoVentana, largoVentana, vidas, esperaActualizaciones);
 		
-		//Agrega a la ventana el panel (panel hereda de JPanel)
+		//Agrega a la ventana el panel (TODA LA PARTE VISUAL, AHI SE HACE EL CODIGO PRINCIPAL)
 		ventana.add(panel);
 		
 		//Achica la ventana lo maximo posible para que entren los componentes, acomoda el panel a la ventana ante cambios de tama;o
 		ventana.pack();
 		
-		// Crea un thread (hilo( enviandole panel (ya que panel implementa runnable( para poder utilizar runnable
+		// Crea un thread (NO IMPORTA EL NOMBRE YA QUE ES UN @OVERRIDE DE UNA INTERFAZ) enviandole panel (ya que panel implementa runnable( para poder utilizar runnable
 		Thread hilo = new Thread (panel);
 		
 		// Inicio .start y no .run para que no inicialice run. Arranca el juego
@@ -51,7 +51,7 @@ public class Inicializador {
 		// Le digo a la ventana que tome las acciones del mouse y le adjunto una clase que tenga aplicado los usos del mouse
 		/*ventana.addMouseMotionListener(panel);*/
 		
-		ventana.addKeyListener(panel);
+		ventana.addKeyListener(panel); // LE A;ADO EL KEYLISTENER AL PANEL PARA QUE DETECTE MOVIMIENTOS DEL TECLADO. SI NO LO LLAMAS DESDE ACA NO FUNCIONA.
 		
 		
 	}
